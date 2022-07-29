@@ -23,6 +23,8 @@ import di.dilogin.minecraft.event.UserPreLoginEvent;
 import di.dilogin.minecraft.event.UserTeleportEvents;
 import di.dilogin.minecraft.ext.authme.event.AuthmeEvents;
 import di.dilogin.minecraft.ext.authme.event.UserLoginEventAuthmeImpl;
+import di.dilogin.minecraft.ext.nlogin.event.nLoginEvents;
+import di.dilogin.minecraft.ext.nlogin.event.UserLoginEventnLoginImpl;
 import di.dilogin.minecraft.ext.luckperms.LuckPermsEvents;
 import di.internal.exception.NoApiException;
 
@@ -123,6 +125,10 @@ public class BukkitApplication extends JavaPlugin {
 			getPlugin().getLogger().info("Authme detected, starting plugin compatibility.");
 			getServer().getPluginManager().registerEvents(new UserLoginEventAuthmeImpl(), plugin);
 			getServer().getPluginManager().registerEvents(new AuthmeEvents(), plugin);
+		} else if (DILoginController.isnLoginEnabled()) {
+			getPlugin().getLogger().info("nLogin detected, starting plugin compatibility.");
+			getServer().getPluginManager().registerEvents(new UserLoginEventnLoginImpl(), plugin);
+			getServer().getPluginManager().registerEvents(new nLoginEvents(), plugin);
 		} else {
 			getServer().getPluginManager().registerEvents(new UserLoginEventImpl(), plugin);
 			getServer().getPluginManager().registerEvents(new UserBlockEvents(), plugin);

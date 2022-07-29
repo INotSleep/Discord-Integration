@@ -111,7 +111,7 @@ public class DILoginController {
 	}
 	
 	/**
-	 * @return true is Authme is enabled.
+	 * @return true is nLogin is enabled.
 	 */
 	public static boolean isnLoginEnabled() {
 		return BukkitApplication.getPlugin().getServer().getPluginManager().isPluginEnabled("nLogin");

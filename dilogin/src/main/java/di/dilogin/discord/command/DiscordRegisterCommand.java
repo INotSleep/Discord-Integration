@@ -11,6 +11,7 @@ import di.dilogin.controller.DILoginController;
 import di.dilogin.controller.LangManager;
 import di.dilogin.dao.DIUserDao;
 import di.dilogin.entity.AuthmeHook;
+import di.dilogin.entity.nLoginHook;
 import di.dilogin.entity.CodeGenerator;
 import di.dilogin.entity.DIUser;
 import di.dilogin.entity.TmpMessage;
@@ -86,6 +87,8 @@ public class DiscordRegisterCommand implements DiscordCommand {
 
 		if (DILoginController.isAuthmeEnabled()) {
 			AuthmeHook.register(player, password);
+		} else if (DILoginController.isnLoginEnabled()) {
+			nLoginHook.register(player, password);
 		} else {
 			DILoginController.loginUser(player, event.getAuthor());
 		}

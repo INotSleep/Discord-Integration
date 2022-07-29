@@ -19,7 +19,7 @@ public class nLoginHook {
 	/**
 	 * Authme api.
 	 */
-	private static final nLoginAPI nloginapi = nLoginAPI.getAPI();
+	private static final nLoginAPI nloginapi = nLoginAPI.getApi();
 
 	/**
 	 * Start the player session
@@ -27,8 +27,8 @@ public class nLoginHook {
 	 * @param player Bukkit player.
 	 */
 	public static void login(Player player) {
-		if (nLoginAPI.isRegistered(player.getName()))
-			nLoginAPI.forceLogin(player);
+		if (nloginapi.isRegistered(player.getName()))
+			nloginapi.forceLogin(player.getName());
 	}
 
 	/**
@@ -38,7 +38,7 @@ public class nLoginHook {
 	 * @param password Default password.
 	 */
 	public static void register(Player player, String password) {
-		if (!nLoginAPI.isRegistered(player.getName()))
-			nLoginAPI.performRegister(player, password);
+		if (!nloginapi.isRegistered(player.getName()))
+			nloginapi.performRegister(player.getName(), password);
 	}
 }
