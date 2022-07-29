@@ -11,6 +11,7 @@ import di.dilogin.BukkitApplication;
 import di.dilogin.dao.DIUserDao;
 import di.dilogin.dao.DIUserDaoSqlImpl;
 import di.dilogin.entity.AuthmeHook;
+import di.dilogin.entity.nLoginHook;
 import di.dilogin.entity.DIUser;
 import di.dilogin.minecraft.cache.TmpCache;
 import di.dilogin.minecraft.cache.UserBlockedCache;
@@ -108,7 +109,13 @@ public class DILoginController {
 	public static boolean isAuthmeEnabled() {
 		return BukkitApplication.getPlugin().getServer().getPluginManager().isPluginEnabled("AuthMe");
 	}
-
+	
+	/**
+	 * @return true is Authme is enabled.
+	 */
+	public static boolean isnLoginEnabled() {
+		return BukkitApplication.getPlugin().getServer().getPluginManager().isPluginEnabled("nLogin");
+	}
 	/**
 	 * @return true is LuckPerms is enabled.
 	 */
@@ -130,6 +137,8 @@ public class DILoginController {
 
 		if (isAuthmeEnabled()) {
 			AuthmeHook.login(player);
+		} else if (isnLoginEnabled()) {
+			nLoginHook.login(player);
 		} else {
 			Bukkit.getScheduler().runTask(BukkitApplication.getPlugin(),
 					() -> Bukkit.getPluginManager().callEvent(new DILoginEvent(player)));
