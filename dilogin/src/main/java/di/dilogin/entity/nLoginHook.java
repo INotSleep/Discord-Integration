@@ -1,7 +1,7 @@
 package di.dilogin.entity;
 
 import org.bukkit.entity.Player;
-
+import di.dilogin.BukkitApplication;
 import com.nickuc.login.api.nLoginAPI;
 
 /**
@@ -38,7 +38,12 @@ public class nLoginHook {
 	 * @param password Default password.
 	 */
 	public static void register(Player player, String password) {
-		if (!nloginapi.isRegistered(player.getName()))
+		if (!nloginapi.isRegistered(player.getName())) {
+			BukkitApplication.getPlugin().getLogger().info("Not registred. Regisering...");
 			nloginapi.performRegister(player.getName(), password);
+		} else {
+			BukkitApplication.getPlugin().getLogger().info("Registred.");
+			
+		}
 	}
 }

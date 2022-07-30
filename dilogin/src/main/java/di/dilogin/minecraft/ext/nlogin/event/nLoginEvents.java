@@ -22,7 +22,8 @@ public class nLoginEvents implements Listener {
 	private DIUserDao userDao = DILoginController.getDIUserDao();
 
 	@EventHandler
-	public void UnregisterEvent(Player player, String playerName, UnregisterSource source) {
+	public void UnregisterEvent(UnregisterEvent event) {
+		Player player = event.getPlayer();
 		Optional<Player> optPlayer = Optional.ofNullable(player);
 		if (optPlayer.isPresent())
 			unregister(optPlayer.get().getName());

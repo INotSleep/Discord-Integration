@@ -3,7 +3,7 @@ main: di.dilogin.BukkitApplication
 version: 3.4.3
 author: Alhxe
 depend: [DICore]
-softdepend: [AuthMe, Multiverse-Core, LuckPerms]
+softdepend: [AuthMe, Multiverse-Core, LuckPerms, nLogin]
 commands:
     diregister:
         description: User register

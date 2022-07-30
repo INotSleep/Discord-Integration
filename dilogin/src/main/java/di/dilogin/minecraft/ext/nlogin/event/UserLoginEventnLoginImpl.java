@@ -56,16 +56,17 @@ public class UserLoginEventnLoginImpl implements UserLoginEvent {
 	 * @param event LoginEvent.
 	 */
 	@EventHandler
-	public void AuthenticateEvent(final Player player) {
-		String playerName = player.getName();
+    public void AuthenticateEvent(final AuthenticateEvent event) {
+		Player player = event.getPlayer();
+        String playerName = player.getName();
 
-		if (!userDao.contains(playerName)) {
-			initPlayernLoginRegisterRequest(player, playerName);
-		}
+        if (!userDao.contains(playerName)) {
+            initPlayernLoginRegisterRequest(player, playerName);
+        }
 
-		Bukkit.getScheduler().runTask(api.getInternalController().getPlugin(),
-				() -> Bukkit.getPluginManager().callEvent(new DILoginEvent(player)));
-	}
+        Bukkit.getScheduler().runTask(api.getInternalController().getPlugin(),
+                () -> Bukkit.getPluginManager().callEvent(new DILoginEvent(player)));
+    }
 
 	/**
 	 * If the user logged in with Authme is not registered with DILogin, it prompts

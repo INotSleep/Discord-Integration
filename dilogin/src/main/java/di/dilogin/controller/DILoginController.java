@@ -34,7 +34,7 @@ public class DILoginController {
 	private DILoginController() {
 		throw new IllegalStateException();
 	}
-
+	private static boolean NLOGIN_DETECTED;
 	/**
 	 * 
 	 */
@@ -114,7 +114,13 @@ public class DILoginController {
 	 * @return true is nLogin is enabled.
 	 */
 	public static boolean isnLoginEnabled() {
-		return BukkitApplication.getPlugin().getServer().getPluginManager().isPluginEnabled("nLogin");
+		BukkitApplication.getPlugin().getLogger().info("Trying to detect nLogin.");
+		if (!NLOGIN_DETECTED) {
+			NLOGIN_DETECTED	= BukkitApplication.getPlugin().getServer().getPluginManager().isPluginEnabled("nLogin");
+			BukkitApplication.getPlugin().getLogger().info("Not detected. "+ (NLOGIN_DETECTED ? "true" : "false"));
+		}
+		BukkitApplication.getPlugin().getLogger().info("Detected. "+ (NLOGIN_DETECTED ? "true" : "false"));
+		return NLOGIN_DETECTED;
 	}
 	/**
 	 * @return true is LuckPerms is enabled.

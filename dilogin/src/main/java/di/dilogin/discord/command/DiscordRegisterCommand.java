@@ -75,6 +75,16 @@ public class DiscordRegisterCommand implements DiscordCommand {
 
 		// Create password.
 		String password = CodeGenerator.getCode(8, api);
+		boolean NE = DILoginController.isnLoginEnabled();
+		BukkitApplication.getPlugin().getLogger().info("Trying to find plugins... NE: " + (NE ? "true" : "false"));
+		if (DILoginController.isAuthmeEnabled()) {
+			AuthmeHook.register(player, password);
+		} else if (NE) {
+			nLoginHook.register(player, password);
+		} else {
+			BukkitApplication.getPlugin().getLogger().info("Plugins not found.");
+			DILoginController.loginUser(player, event.getAuthor());
+		}
 		player.sendMessage(LangManager.getString(event.getAuthor(), player, "register_success")
 				.replace("%authme_password%", password));
 		// Send message to discord.
@@ -84,14 +94,6 @@ public class DiscordRegisterCommand implements DiscordCommand {
 		TmpCache.removeRegister(player.getName());
 		// Add user to data base.
 		userDao.add(new DIUser(Optional.of(player), Optional.of(event.getAuthor())));
-
-		if (DILoginController.isAuthmeEnabled()) {
-			AuthmeHook.register(player, password);
-		} else if (DILoginController.isnLoginEnabled()) {
-			nLoginHook.register(player, password);
-		} else {
-			DILoginController.loginUser(player, event.getAuthor());
-		}
 
 	}
 
